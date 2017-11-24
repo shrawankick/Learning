@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <title> testing number </title>
+    <style>
+        #grid {
+            width: 300px;
+            height: 300px;
+            margin: auto;
+            border: 3px solid #73AD21;
+            padding: 10px;
+        }
+
+        .cell {
+            outline: 1px solid red;
+            float: left;
+            height: 100px;
+            width: 100px;
+            text-align: center;
+            font-size: 30px;
+            background-color: lightblue;
+            color: blue;
+            cursor: pointer;
+        }
+
+            .cell:hover {
+                background-color: yellow;
+                cursor: hand;
+            }
+
+        .blank {
+            background-color: #EEE;
+        }
+    </style>
+    <script src="Script1.js"></script>
+    <script src="audio.js"></script>
+    <script>
+        var a = [["", 1, 2], [3, 4, 5], [6, 7, 8]];
+        $(document).ready(function () {
+            showArray();
+        });
+        $(document).ready(function () {
+            SetBlankStyle();
+
+            $("div > div").mouseup(function () {
+                var x = event.target.id;
+                var result = possiblePositions(parseInt(x[0]), parseInt(x[1]));
+                showArray();
+                SetBlankStyle();
+                if (result === 0) {
+                    playSound();
+                }
+            });
+        });
+
+        function SetBlankStyle() {
+            $("div > div").each(function () {
+                var id = $(this).attr('id');
+                if (a[parseInt(id[0])][parseInt(id[1])] === "") {
+                    $(this).addClass("blank");
+                }
+                else {
+                    $(this).removeClass("blank");
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+
+<div id="grid">
+    <div id="00" class="cell"></div>
+    <div id="01" class="cell"></div>
+    <div id="02" class="cell"></div>
+    <div id="10" class="cell"></div>
+    <div id="11" class="cell"></div>
+    <div id="12" class="cell"></div>
+    <div id="20" class="cell"></div>
+    <div id="21" class="cell"></div>
+    <div id="22" class="cell"></div>
+</div>
+</body>
+</html>
